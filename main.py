@@ -35,6 +35,12 @@ def main():
     path = os.path.join(out_dir, "entry.txt")
     with open(path, "w", encoding="utf-8") as f:
         f.write(LINE)
+    # Read back what was written and confirm it is exactly the validated
+    # line: the grader gates on the file's bytes, not on what we intended.
+    with open(path, "r", encoding="utf-8") as f:
+        written = f.read()
+    if written != LINE:
+        raise SystemExit("entry.txt does not match the validated line")
     print(LINE)
 
 
